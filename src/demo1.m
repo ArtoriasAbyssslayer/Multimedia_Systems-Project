@@ -30,6 +30,13 @@ for i = 1:no_frames
 end
 
 audiowrite('decoded.wav', s0_dec, Fs);
-
+sound(s0_dec,Fs)
 % Calculate the mean squared error
 mse = mean((s0-s0_dec).^2);
+disp(mse);
+figure(1);
+plot(1:length(s0),s0);
+title("Original waveform")
+figure(2)
+plot(1:length(s0_dec),s0_dec);
+title("Decoded waveform")
