@@ -1,7 +1,7 @@
 function [s0,CurrFrmSTResd] = RPE_frame_SLT_decoder(LARc, Nc, bc, CurrFrmExFull, PrevFrmSTResd)
     % Decision levels of the decoding
     QLB = [0.10 0.35 0.65 1.00];
-    
+    k0 = 161;
     CurrFrmSTResd = zeros(size(PrevFrmSTResd));
     for j = 1:4
         % Dequantize LTP gain
@@ -19,7 +19,7 @@ function [s0,CurrFrmSTResd] = RPE_frame_SLT_decoder(LARc, Nc, bc, CurrFrmExFull,
     
     
     % Short term decoder
-    s0 = RPE_frame_ST_decoder(LARc,CurrFrmResd);
+    s0 = RPE_frame_ST_decoder(LARc,CurrFrmSTResd);
 
 
 end
