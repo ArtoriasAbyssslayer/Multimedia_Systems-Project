@@ -1,6 +1,4 @@
 function [LARc,CurrFrmResd] = RPE_frame_ST_coder(s0)
-%   RPE_FRAME_ST_CODER Summary of this function goes here
-%   Detailed explanation goes here
     %% Preprocessing and calculation of LAR
     s = preprocessing(s0);
     
@@ -9,9 +7,8 @@ function [LARc,CurrFrmResd] = RPE_frame_ST_coder(s0)
     w = w_calc(r_s);
     w_appended = [1 -w']';
     r_coefs = poly2rc(w_appended);
-       
-    LAR = log10((1+r_coefs)./(1-r_coefs));
-%     LAR = r2LAR(r_coefs);
+    %convert LAR to reflection coefficients
+    LAR = r2LAR(r_coefs);
 
     %% LAR Quantization
     A = [20,20,20,20,13.637,15,8.334,8.824]';
@@ -23,8 +20,7 @@ function [LARc,CurrFrmResd] = RPE_frame_ST_coder(s0)
     LAR_dec = (LARc - B)./A;
     
     % calculation of d with FIR filter and AR coeffs [1, -a1,-a2,-a3...a8]
-    rcoefs_dec = (10.^LAR_dec - 1)./(10.^LAR_dec + 1);
-%     rcoefs_dec = LAR2r(LAR_dec);
+    rcoefs_dec = LAR2r(LAR_dec);
     
     w_dec = rc2poly(rcoefs_dec)';
     
@@ -32,7 +28,6 @@ function [LARc,CurrFrmResd] = RPE_frame_ST_coder(s0)
     a_dec = w_dec(2:end);
 
     CurrFrmResd = s - s_predicted(s, a_dec);
-%     CurrFrmResd = short_term_analysis_filt(s, rcoefs_dec);
     
 end
 

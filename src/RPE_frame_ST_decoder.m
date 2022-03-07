@@ -6,8 +6,8 @@ function s0 = RPE_frame_ST_decoder(LARc,CurrFrmResd)
     % Decode the quantized LARc
     LAR_dec = (LARc - B)./A;
     
-    rcoefs_dec = (10.^LAR_dec - 1)./(10.^LAR_dec + 1);
-%     rcoefs_dec = LAR2r(LAR_dec)';
+    % inverse convertion LAR->rc
+    rcoefs_dec = LAR2r(LAR_dec)';
     
     % The denominator coeffs of the filter
     w_dec = rc2poly(rcoefs_dec);
