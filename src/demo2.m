@@ -1,7 +1,7 @@
 clear 
 clc 
 clf
-[s0,Fs] = audioread('../assets/a-little-sticious.wav');
+[s0,Fs] = audioread('../assets/level1_original.wav');
 
 no_samples = length(s0)/160;
 
