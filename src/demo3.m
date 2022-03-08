@@ -1,7 +1,7 @@
 clear 
 clc 
 clf
-[s0,Fs] = audioread('../assets/level1_original.wav');
+[s0,Fs] = audioread('../assets/a-little-sticious.wav');
 
 no_samples = length(s0)/160;
 
@@ -41,6 +41,7 @@ audiowrite('decoded.wav', s0_dec, Fs);
 sound(s0_dec,Fs)
 % Calculate the mean squared error
 mse = mean((s0-s0_dec).^2);
+fprintf('Mean squared error:')
 disp(mse);
 figure(1);
 plot(1:length(s0),s0);

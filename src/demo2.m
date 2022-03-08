@@ -1,7 +1,7 @@
 clear 
 clc 
 clf
-[s0,Fs] = audioread('../assets/level1_original.wav');
+[s0,Fs] = audioread('../assets/a-little-sticious.wav');
 
 no_samples = length(s0)/160;
 
@@ -15,8 +15,8 @@ end
 s0_dec = zeros(size(s0));
 
 
-  [LARc,CurrFrmSTResd] = RPE_frame_ST_coder(s0(1:160));
-  s0_dec(1:160) = RPE_frame_ST_decoder(LARc,CurrFrmSTResd);
+[LARc,CurrFrmSTResd] = RPE_frame_ST_coder(s0(1:160));
+s0_dec(1:160) = RPE_frame_ST_decoder(LARc,CurrFrmSTResd);
   
 % Iterate for every frame of the signal
 for i = 1:no_samples
@@ -41,6 +41,7 @@ audiowrite('decoded.wav', s0_dec, Fs);
 sound(s0_dec,Fs)
 % Calculate the mean squared error
 mse = mean((s0-s0_dec).^2);
+fprintf('Mean squared error:')
 disp(mse);
 figure(1);
 plot(1:length(s0),s0);
