@@ -6,6 +6,7 @@ function [LARc,CurrFrmResd] = RPE_frame_ST_coder(s0)
     r_s = acf(s);
     w = w_calc(r_s);
     w_appended = [1 -w']';
+    d = filter(w_appended,1,s);
     r_coefs = poly2rc(w_appended);
     %convert LAR to reflection coefficients
     LAR = r2LAR(r_coefs);
@@ -26,8 +27,7 @@ function [LARc,CurrFrmResd] = RPE_frame_ST_coder(s0)
     
     % Remove the first value of w_dec which is 1
     a_dec = w_dec(2:end);
-
-    CurrFrmResd = s - s_predicted(s, a_dec);
+    
+    CurrFrmResd = d - s_predicted(s, a_dec);
     
 end
-

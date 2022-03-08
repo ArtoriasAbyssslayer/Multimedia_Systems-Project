@@ -12,7 +12,7 @@ function s0 = RPE_frame_ST_decoder(LARc,CurrFrmResd)
     % The denominator coeffs of the filter
     w_dec = rc2poly(rcoefs_dec);
     windowSize = 2;
-    b = (1/windowSize)*ones(1,windowSize);
+    b = ones(1,windowSize);
     % Convolute with the filter Hs
     s = filter(b, w_dec, CurrFrmResd,[],2);
  
